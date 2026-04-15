@@ -39,3 +39,6 @@ sft_model_v2_step*/
 
 # Data artifacts
 selfplay_pairs.json
+
+# Local source folder used to collect downloaded Kaggle notebooks
+kaggle_notebooks/

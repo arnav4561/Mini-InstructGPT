@@ -35,6 +35,7 @@ End-to-end LLM alignment project: started with a GPT-2 RLHF pipeline (SFT + rewa
 - `diagnostic.py` - diagnostics/debug checks
 - `make_zips.py` - packaging helper
 - `artifacts/` - evaluation outputs and comparison tables
+- `notebooks/` - exported Kaggle notebooks used in training/evaluation
 
 ## Evaluation Artifacts
 

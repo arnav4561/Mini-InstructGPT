@@ -27,6 +27,20 @@ Mini-InstructGPT is an end-to-end alignment project that starts with a GPT-2 RLH
 - Qwen (7B DPO) direct-answer rate: `97.0%`
 - GPT-2 PPO v2 direct-answer rate: `1.0%`
 
+## Evaluation Artifacts
+
+- `artifacts/eval_100_prompts.jsonl` - fixed 100-prompt benchmark set
+- `artifacts/outputs_7b_dpo.jsonl` - responses from Qwen2.5-7B DPO model
+- `artifacts/outputs_gpt2_ppo_v2.jsonl` - responses from GPT-2 PPO v2 model
+- `artifacts/comparison_full_100.csv` - full side-by-side comparison table
+- `artifacts/comparison_sample_20.csv` - short sample comparison table
+
+## Kaggle Context
+
+- Training and evaluation were executed on Kaggle notebooks.
+- This repository includes downloaded evaluation outputs for reproducibility.
+- Large model checkpoints are excluded from git and should be hosted via Kaggle datasets or releases.
+
 ## Repository Layout
 
 - `phase1_setup.py` - initial setup and data prep helpers

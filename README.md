@@ -1,58 +1,51 @@
 # Mini-InstructGPT
 
-Mini-InstructGPT is an end-to-end alignment project that starts with a GPT-2 RLHF pipeline and scales to a 7B QLoRA + DPO setup.
+End-to-end LLM alignment project: started with a GPT-2 RLHF pipeline (SFT + reward model + PPO), diagnosed reward-hacking behavior, then scaled to a 7B QLoRA + DPO setup with significantly better response quality.
 
-## Project Goals
+## Highlights
 
-- Build an InstructGPT-style training pipeline from scratch.
-- Understand reward modeling and PPO behavior in practice.
-- Reduce deflective responses and improve direct-answer quality.
+- Built full RLHF-style pipeline from scratch with GPT-2 and iterated through PPO v2.
+- Identified and mitigated reward-hacking patterns in small-model PPO training.
+- Scaled to `Qwen2.5-7B-Instruct` with QLoRA + DPO on Kaggle.
+- Benchmarked both systems on a fixed 100-prompt evaluation set.
 
-## What Was Built
+## Results
 
-- GPT-2 pipeline:
-- SFT training scripts
-- Reward model training
-- PPO / PPO v2 training loops
-- 7B scale-up:
-- QLoRA-style adapter workflow (Qwen2.5-7B-Instruct base)
-- DPO training data preparation and training flow
-- Evaluation:
-- Fixed-prompt comparisons between GPT-2 PPO v2 and 7B DPO
+| Metric | GPT-2 PPO v2 | Qwen2.5-7B DPO |
+|---|---:|---:|
+| Deflection rate | 88.0% | 2.0% |
+| Direct-answer rate | 1.0% | 97.0% |
 
-## Key Result Snapshot
+## Project Phases
 
-- Qwen (7B DPO) deflection rate: `2.0%`
-- GPT-2 PPO v2 deflection rate: `88.0%`
-- Qwen (7B DPO) direct-answer rate: `97.0%`
-- GPT-2 PPO v2 direct-answer rate: `1.0%`
+- `Phase 1` Setup + data prep (`phase1_setup.py`)
+- `Phase 2` Supervised fine-tuning (`phase2_sft_v2.py`)
+- `Phase 3` Reward model training (`phase3_reward_model.py`, `selfplay_reward_model.py`)
+- `Phase 4` PPO / PPO v2 (`phase4_ppo.py`, `phase4_ppo_v2.py`)
+- `Scale-up` 7B QLoRA + DPO with fixed-prompt evaluation (artifacts in `artifacts/`)
+
+## Repository Structure
+
+- `phase1_setup.py` - setup and preprocessing helpers
+- `phase2_sft_v2.py` - supervised fine-tuning
+- `phase3_reward_model.py` - reward model training
+- `selfplay_reward_model.py` - reward model refinement flow
+- `phase4_ppo.py` - PPO training
+- `phase4_ppo_v2.py` - PPO v2 training
+- `diagnostic.py` - diagnostics/debug checks
+- `make_zips.py` - packaging helper
+- `artifacts/` - evaluation outputs and comparison tables
 
 ## Evaluation Artifacts
 
-- `artifacts/eval_100_prompts.jsonl` - fixed 100-prompt benchmark set
-- `artifacts/outputs_7b_dpo.jsonl` - responses from Qwen2.5-7B DPO model
-- `artifacts/outputs_gpt2_ppo_v2.jsonl` - responses from GPT-2 PPO v2 model
-- `artifacts/comparison_full_100.csv` - full side-by-side comparison table
-- `artifacts/comparison_sample_20.csv` - short sample comparison table
+- `artifacts/eval_100_prompts.jsonl` - fixed benchmark prompt set
+- `artifacts/outputs_7b_dpo.jsonl` - Qwen2.5-7B DPO outputs
+- `artifacts/outputs_gpt2_ppo_v2.jsonl` - GPT-2 PPO v2 outputs
+- `artifacts/comparison_full_100.csv` - full side-by-side comparison
+- `artifacts/comparison_sample_20.csv` - short sample view
 
-## Kaggle Context
+## Reproducibility Notes
 
-- Training and evaluation were executed on Kaggle notebooks.
-- This repository includes downloaded evaluation outputs for reproducibility.
-- Large model checkpoints are excluded from git and should be hosted via Kaggle datasets or releases.
-
-## Repository Layout
-
-- `phase1_setup.py` - initial setup and data prep helpers
-- `phase2_sft_v2.py` - supervised fine-tuning stage
-- `phase3_reward_model.py` - reward model training
-- `phase4_ppo.py` - PPO training stage
-- `phase4_ppo_v2.py` - PPO v2 iteration
-- `selfplay_reward_model.py` - reward-model refinement script
-- `diagnostic.py` - debugging/diagnostics utilities
-- `make_zips.py` - artifact packaging helper
-
-## Notes
-
-- Large checkpoints, model weights, and zip artifacts are excluded via `.gitignore`.
-- This repository tracks code and workflow, not full model binaries.
+- Training/evaluation runs were executed on Kaggle notebooks.
+- This repo stores code + exported evaluation outputs.
+- Large checkpoints and model binaries are excluded by `.gitignore`.

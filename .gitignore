@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+
+# OS/IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs/cache
+*.log
+.cache/
+
+# Large training artifacts and checkpoints
+*.zip
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+*.h5
+*.onnx
+
+# Project-specific generated artifacts
+hh_rlhf_tokenized/
+ppo_model/
+reward_model/
+reward_model_step*/
+reward_model_v2/
+reward_model_v2_step*/
+sft_model/
+sft_model_v2/
+sft_model_v2_step*/
+
+# Data artifacts
+selfplay_pairs.json
